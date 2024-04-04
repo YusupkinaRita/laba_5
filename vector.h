@@ -24,6 +24,28 @@ public:
             _array[i]=0;
         }
     }
+    vector& operator=(const vector& tmp){
+        if(tmp._size>_size){
+            delete[]_array;
+            _array=new T[tmp._size];
+
+        }
+        _size=tmp._size;
+        for (size_t i=0; i<_size; i++){
+            _array[i]=tmp._array[i];
+        }
+        return *this;
+    }
+
+    vector(const vector& tmp){
+        _size=tmp._size;
+        _array=new T[_size];
+        for(size_t i=0; i<_size; i++){
+            _array[i]=tmp._array[i];
+        }
+
+    }
+
 
     ~vector(){
         delete[] _array;
@@ -47,36 +69,43 @@ public:
 
 
     vector operator+(const vector& vect)const{
-        T*new_arr=new T[_size];
+        if(_size!=vect._size)
+        throw "different sizes, cant add";
+        vector vect1=vector(_size);
         for(int i=0; i<_size;i++){
-            new_arr[i]=vect._array[i]+_array[i];
+            vect1._array[i]=vect._array[i]+_array[i];
         }
-        return vector(_size, new_arr);
-        delete[] new_arr;
+        
+        return vect1;
+        
     }
 
     vector operator-(const vector& vect)const{
 
-        T*new_arr=new T[_size];
+       if(_size!=vect._size)
+        throw "different sizes, cant substruct";
+        vector vect1=vector(_size);
         for(int i=0; i<_size;i++){
-            new_arr[i]=vect._array[i]-_array[i];
+            vect1[i]=vect._array[i]-_array[i];
         }
-        return vector(_size, new_arr);
-        delete[] new_arr;
+
+        return vect1;
     }
 
     vector operator*(double x)const{
-        T*new_arr=new T[_size];
+        vector vect1=vector(_size);
         for(int i=0; i<_size;i++){
-            new_arr[i]=_array[i]*x;
+            vect1[i]=_array[i]*x;
         }
 
-        return vector(_size, new_arr);
-         delete[] new_arr;
+        return vect1;
+        
     }
 
     double operator*(const vector& vect)const{
         double s=0;
+        if(_size!=vect._size)
+        throw "different sizes, cant substruct";
         for(int i=0;i<_size;i++){
             s+=_array[i]*_array[i];
 
@@ -85,31 +114,21 @@ public:
 
     }
 
-    double operator_l()const{
-        double s=0;
-        for(int i=0;i<_size;i++){
-            s+=_array[i]*_array[i];
 
-        }
-        return sqrt(s);
+
+    double lenght(){
+        double d=*this**this;
+        return sqrt(d);
 
     }
 
-    vector operator_n()const{
-        double s=0;
-        T*new_arr=new T[_size];
+    vector<double> normalise(){
+        double l=lenght();
         for(int i=0;i<_size;i++){
-            s+=_array[i]*_array[i];
+            _array[i]=_array[i]/l;
 
         }
-        s=sqrt(s);
-        for(int i=0;i<_size;i++){
-            new_arr[i]=_array[i]/s;
-
-        }
-        
-        return vector(_size, new_arr);
-        delete[] new_arr;
+        return *this;
 
     }
 
