@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <math.h>
 
@@ -10,7 +11,16 @@ T* _array;
 size_t _size;
 
 public:
-    vector()=delete;
+    vector(){
+        _size=10;
+        _array=new T[_size];
+    }
+
+    inline size_t getsize(){
+        return _size;
+
+    }
+
     vector(size_t size, T* array):_size(size), _array(new T[size]){
         for(int i=0;i<_size;i++){
             _array[i]=array[i];
@@ -24,7 +34,9 @@ public:
             _array[i]=0;
         }
     }
-    vector& operator=(const vector& tmp){
+
+
+vector& operator=(const vector& tmp){
         if(tmp._size>_size){
             delete[]_array;
             _array=new T[tmp._size];
@@ -82,13 +94,13 @@ public:
 
     vector operator-(const vector& vect)const{
 
-       if(_size!=vect._size)
+        if(_size!=vect._size)
         throw "different sizes, cant substruct";
         vector vect1=vector(_size);
         for(int i=0; i<_size;i++){
             vect1[i]=vect._array[i]-_array[i];
         }
-
+        
         return vect1;
     }
 
@@ -104,7 +116,7 @@ public:
 
     double operator*(const vector& vect)const{
         double s=0;
-        if(_size!=vect._size)
+if(_size!=vect._size)
         throw "different sizes, cant substruct";
         for(int i=0;i<_size;i++){
             s+=_array[i]*_array[i];
