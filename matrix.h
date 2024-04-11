@@ -64,6 +64,24 @@ public:
 
     }
 
+    T determinant(){
+        if(_size==2)
+        return _vectors[0][0]*_vectors[1][1]+_vectors[0][1]*_vectors[1][0];
+        else{
+            T det=0;
+            matrix mat=matrix(_size-1,_size-1);
+            for(size_t i=0;i<_size;i++){
+                det+=(-1)^(i+2)*_vectors[0][i]*mat.determinant();
+            
+            }
+            return det;
+        }
+
+
+
+
+    }
+
 
 
 
