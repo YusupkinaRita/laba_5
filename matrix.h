@@ -60,30 +60,63 @@ public:
             
         }
         return mat;
+    }
 
-
+    matrix new_m(size_t x){
+        size_t temp=x;
+        size_t s=_size-1;
+        matrix m=matrix(s,s);
+        for(size_t i=0;i<s;i++){
+            x=temp;
+            for(size_t j=0; j<s;j++){
+                if(x==j){
+                    m[i][j]=_vectors[i+1][j+1];
+                    x++;    
+                }
+                else 
+                    m[i][j]=_vectors[i+1][j];
+            
+            }
+        }
+        return m;
     }
 
     T determinant(){
-        if(_size==2)
-        return _vectors[0][0]*_vectors[1][1]+_vectors[0][1]*_vectors[1][0];
+        if(_size!=_vectors[0].getsize())
+        throw "different sizes";
+        int sign=1;
+        if (_size==1)
+        return _vectors[0][0];
+        if (_size==2){
+        
+        return _vectors[0][0]*_vectors[1][1]-_vectors[0][1]*_vectors[1][0];
+        }
         else{
-            T det=0;
-            matrix mat=matrix(_size-1,_size-1);
+        T det=0;
             for(size_t i=0;i<_size;i++){
-                det+=(-1)^(i+2)*_vectors[0][i]*mat.determinant();
-            
+                det+=sign*_vectors[0][i]*new_m(i).determinant();
+                sign = -sign;
             }
+
             return det;
         }
+    
+    }
+
+
+    matrix inverse_matrix(){
+        T det=determinant();
+        if (det==0)
+        throw "inverse matrix doesnt exist";
+
+
+
+
 
 
 
 
     }
-
-
-
 
     matrix operator+(const matrix& matr)const{
         size_t s=_vectors[0].getsize();
