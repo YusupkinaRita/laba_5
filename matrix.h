@@ -62,12 +62,14 @@ public:
         return mat;
     }
 
-    matrix new_m(size_t x){
-        size_t temp=x;
+    matrix new_m(size_t y , size_t x){
+        size_t temp1=y;
+        size_t temp2=x;
         size_t s=_size-1;
         matrix m=matrix(s,s);
         for(size_t i=0;i<s;i++){
-            x=temp;
+            x=temp2;
+            if(i==y){
             for(size_t j=0; j<s;j++){
                 if(x==j){
                     m[i][j]=_vectors[i+1][j+1];
@@ -76,6 +78,20 @@ public:
                 else 
                     m[i][j]=_vectors[i+1][j];
             
+            }
+            y++;
+            }
+            else{
+                for(size_t j=0; j<s;j++){
+                if(x==j){
+                    m[i][j]=_vectors[i][j+1];
+                    x++;    
+                }
+                else 
+                    m[i][j]=_vectors[i][j];
+            
+            }
+
             }
         }
         return m;
@@ -94,7 +110,7 @@ public:
         else{
         T det=0;
             for(size_t i=0;i<_size;i++){
-                det+=sign*_vectors[0][i]*new_m(i).determinant();
+                det+=sign*_vectors[0][i]*new_m(0,i ).determinant();
                 sign = -sign;
             }
 
@@ -108,13 +124,32 @@ public:
         T det=determinant();
         if (det==0)
         throw "inverse matrix doesnt exist";
+        matrix m=matrix(_size, _size);
+        for(size_t i=0;i<_size;i++){
+            for(size_t j=0;j<_size;j++){
+                m[i][j]=new_m(i,j).determinant();
+                if((i+j)%2==1&&m[i][j]!=0)
+                m[i][j]*=-1;
+            }
 
+        }
+        matrix m1=m.transpose();
+        double x=1.0/det;
+        
 
+        return m1*x;
 
+    }
 
-
-
-
+    matrix operator*(T x){
+        matrix m=matrix(_size,_size);
+        for(size_t i=0; i<_size;i++){
+            for(size_t j=0; j<_size;j++){
+                m[i][j]=_vectors[i][j]*x;
+            
+            }
+        }
+        return m;
 
     }
 
