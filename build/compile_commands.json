@@ -1,0 +1,8 @@
+[
+{
+  "directory": "C:/meee/coding/laba_5/build",
+  "command": "C:\\msys64\\mingw32\\bin\\g++.exe  -std=c++17 -g -o CMakeFiles\\main.dir\\main.cpp.obj -c C:\\meee\\coding\\laba_5\\main.cpp",
+  "file": "C:\\meee\\coding\\laba_5\\main.cpp",
+  "output": "CMakeFiles\\main.dir\\main.cpp.obj"
+}
+]
