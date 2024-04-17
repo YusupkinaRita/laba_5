@@ -2,6 +2,7 @@
 #include <iostream>
 #include <math.h>
 
+
 template<typename T>
 
 
@@ -36,7 +37,7 @@ public:
     }
 
 
-vector& operator=(const vector& tmp){
+    vector& operator=(const vector& tmp){
         if(tmp._size>_size){
             delete[]_array;
             _array=new T[tmp._size];
@@ -113,18 +114,30 @@ vector& operator=(const vector& tmp){
         return vect1;
         
     }
-
-    double operator*(const vector& vect)const{
-        double s=0;
-if(_size!=vect._size)
-        throw "different sizes, cant substruct";
-        for(int i=0;i<_size;i++){
-            s+=_array[i]*_array[i];
-
-        }
-        return s;
+     
+    vector operator*(const vector& vect)const{
+        if(_size!=vect._size)
+            throw "different sizes";
+        if(_size!=3)
+        throw " ";
+        vector res=vector(_size);
+        res[0]=_array[1]*vect._array[2]-_array[2]*vect._array[1];
+        std::cout<<res[0]<<"i";
+        res[1]=(_array[0]*vect._array[2]-_array[2]*vect._array[0])*(-1);
+        if(res[1]>=0)
+        std::cout<<" + "<<res[1]<<"j";
+        else
+        std::cout<<res[1]<<"j";
+        res[2]=_array[0]*vect._array[1]-_array[1]*vect._array[0];
+        if(res[2]>=0)
+        std::cout<<" + "<<res[2]<<"k";
+        else
+        std::cout<<res[2]<<"k"<<std::endl;
+        std::cout<<" "<<std::endl;
+        return res;
 
     }
+
 
 
 

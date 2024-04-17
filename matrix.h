@@ -135,8 +135,6 @@ public:
         }
         matrix m1=m.transpose();
         double x=1.0/det;
-        
-
         return m1*x;
 
     }
