@@ -192,7 +192,7 @@ public:
         for(size_t i=0; i<_size; i++){
             for(size_t j=0; j<s1;j++){
                 for(int k=0; k<_size; k++){
-                int temp = _vectors[i][k]*matr[k][j];
+                T temp = _vectors[i][k]*matr[k][j];
                 mat[i][j] += temp;
                 temp = 0;
                 }

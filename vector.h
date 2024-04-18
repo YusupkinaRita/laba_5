@@ -56,12 +56,14 @@ public:
         for(size_t i=0; i<_size; i++){
             _array[i]=tmp._array[i];
         }
+        std::cout<<"copy constructor vec"<<std::endl;
 
     }
 
 
     ~vector(){
         delete[] _array;
+
     }
 
     T& operator[](int i)const{
@@ -85,6 +87,7 @@ public:
         if(_size!=vect._size)
         throw "different sizes, cant add";
         vector vect1=vector(_size);
+        std::cout<<vect1._array<<std::endl;
         for(int i=0; i<_size;i++){
             vect1._array[i]=vect._array[i]+_array[i];
         }
